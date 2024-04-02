@@ -1,0 +1,22 @@
+{
+  "name": "tareanode",
+  "version": "1.0.0",
+  "description": "tareanube",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeZathRa/gittareanode.git"
+  },
+  "author": "less",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeZathRa/gittareanode/issues"
+  },
+  "homepage": "https://github.com/LeZathRa/gittareanode#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
