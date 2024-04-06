@@ -4,7 +4,6 @@ const app = express();
 // Middleware para analizar el cuerpo de la solicitud como JSON
 app.use(express.json());
 
-// Datos de ejemplo para clientes y productos
 const clientes = [
     { id: 1, nombre: 'Cliente 1', email: 'cliente1@example.com' },
     { id: 2, nombre: 'Cliente 2', email: 'cliente2@example.com' },
@@ -23,16 +22,14 @@ app.get('/', (req, res) => {
 });
 
 app.get('/clientes', (req, res) => {
-    // Mostrar los primeros 3 clientes
-    res.json(clientes.slice(0, 3));
+    res.json(clientes);
 });
 
 app.get('/productos', (req, res) => {
-    // Mostrar los primeros 3 productos
-    res.json(productos.slice(0, 3));
+    res.json(productos);
 });
 
-// Permitir peticiones POST, PUT y DELETE para clientes
+//  POST, PUT y DELETE para clientes
 app.post('/clientes', (req, res) => {
     const nuevoCliente = req.body;
     clientes.push(nuevoCliente);
@@ -61,7 +58,35 @@ app.delete('/clientes/:id', (req, res) => {
         res.status(404).send('Cliente no encontrado');
     }
 });
+//  POST, PUT y DELETE para PRODUCTOS
 
+app.post('/productos', (req, res) => {
+    const nuevoProducto = req.body;
+    productos.push(nuevoProducto);
+    res.status(201).json(nuevoProducto);
+});
+
+app.put('/productos/:id', (req, res) => {
+    const idProducto = parseInt(req.params.id);
+    const productoActualizado = req.body;
+    const index = productos.findIndex(producto => producto.id === idProducto);
+    if (index !== -1) {
+        productos[index] = productoActualizado;
+        res.json(productoActualizado);
+    } else {
+        res.status(404).send('Producto no encontrado');
+    }
+});
+app.delete('/productos/:id', (req, res) => {
+    const idProducto = parseInt(req.params.id);
+    const index = productos.findIndex(producto => producto.id === idProducto);
+    if (index !== -1) {
+        productos.splice(index, 1);
+        res.send('Producto eliminado correctamente');
+    } else {
+        res.status(404).send('Producto no encontrado');
+    }
+});
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Servidor Express corriendo en el puerto ${port}`);
